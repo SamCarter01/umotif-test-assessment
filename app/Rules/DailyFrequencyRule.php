@@ -39,9 +39,9 @@ class DailyFrequencyRule implements DataAwareRule, ValidationRule
     {
         if ($this->data['frequency'] !== Frequency::DAILY->value) {
             $fail('The daily frequency can only be passed if the response to the frequency is '.Frequency::DAILY->value().'.');
-        } elseif (array_key_exists('daily_frequency', $this->data) && $this->data['daily_frequency'] !== null) {
+        } elseif (array_key_exists('daily_frequency', $this->data) && $this->data['frequency'] === null) {
             $fail('The daily frequency field should not be present when the response to the frequency is not ' . Frequency::DAILY->value() . '.');
-        } elseif (DailyFrequency::tryFrom($this->data['daily_frequency']) !== null) {
+        } elseif (DailyFrequency::tryFrom($this->data['daily_frequency']) === null) {
             $fail('Invalid value for daily frequency.');
         }
     }
